@@ -51,6 +51,8 @@ span {
   .card {
     width: 100%;
     margin-bottom: 30px;
+    display : block;
+    text-align: justify;
   }
   h1 {
     text-align: center;
