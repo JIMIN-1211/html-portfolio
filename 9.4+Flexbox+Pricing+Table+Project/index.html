@@ -14,8 +14,8 @@
       }
 
       .pricing-container {
-        display: flex;
         height: 100vh;
+        display : flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
@@ -23,50 +23,48 @@
       }
 
       .pricing-plan {
-        flex: 1;
-        border-radius: 5px;
         max-width: 400px;
+        flex: 1;
         background-color: #f2f2f2;
-        padding : 20px;
+        padding: 20px;
+        border-radius: 5px;
         text-align: center;
       }
 
-      .pricing-plan > div {
-        margin-bottom: 10px;
-        font-weight: bolder;
-      }
-
       .plan-title {
+        font-weight: bolder;
+        margin-bottom: 10px;
         font-size: 1.5rem;
       }
 
       .plan-price {
+        font-weight: bolder;
+        margin-bottom: 10px;
         font-size: 3rem;
       }
 
       .plan-features {
         list-style-type: none;
-        margin: 0;
         padding: 0;
       }
-      
+
       li {
         margin-bottom: 20px;
       }
 
       button {
-        padding : 10px;
-        background-color: #ff6600;;
-        border-radius: 15%;
-        border : none;
-        color : white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #ff6600;
+        color: white;
       }
       /*다시해보기*/
       /* Hint: What can you do with a media query and flexbox? */
       @media (max-width: 1250px) {
         .pricing-container {
-          height: 100%;
           flex-direction: column;
+          height: 100%;
         }
       }
     </style>
