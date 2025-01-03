@@ -1,9 +1,16 @@
 const buttonColours = ["red", "blue", "green", "yellow"];
-const gamePattern = [];
-const userClickedPattern = [];
+var gamePattern = [];
+var userClickedPattern = [];
 var level = 0;
+var started = false;
 
-$("html").one("keydown", nextSequence);
+$(document).keypress(function() {
+    if(!started) {
+        $("h1").text("Level "+level);
+        nextSequence();
+        started = true;
+    }
+})
 
 $(".btn").click(function (){
 
@@ -14,26 +21,23 @@ $(".btn").click(function (){
 
     playSound(userChosenColour)
     animatePress(userChosenColour);
-    // console.log($(this).attr("id"));
-    nextSequence();
+    
+    checkAnswer(userClickedPattern.length-1);
 }) 
 
 function nextSequence(){
+    userClickedPattern=[];
 
     var randomNumber = Math.floor(Math.random()*4);
     var randomChosenColour = buttonColours[randomNumber];
     gamePattern.push(randomChosenColour);
     console.log(gamePattern);
-    setTimeout(()=>{
-      for(var i=0; i<gamePattern.length; i++){
-            $("#"+gamePattern[i]).fadeIn(100).fadeOut(100).fadeIn(100);
-            playSound(gamePattern[i]);
-        }  
-    }, 100);
+
+    $("#"+randomChosenColour).fadeIn(100).fadeOut(100).fadeIn(100);
+    playSound(randomChosenColour);
     
-    
-    $("h1").text("Level "+level);
     level++;
+    $("h1").text("Level "+level);
 }
 
 function playSound(name) {
@@ -46,4 +50,32 @@ function animatePress(currentColour) {
     setTimeout(()=>{
         $("#"+currentColour).removeClass("pressed");
     },100);
+}
+
+function checkAnswer(currentLevel) {
+    if(userClickedPattern[currentLevel] === gamePattern[currentLevel]){
+        console.log("success");
+        if(userClickedPattern.length === gamePattern.length){
+            setTimeout(()=>{
+                nextSequence();
+            }, 1000);
+        }
+    }else{
+        $("body").addClass("game-over");
+        setTimeout(()=>{
+            $("h1").text("Game Over, Press Any Key to Restart");
+            playSound("wrong");
+            $("body").removeClass("game-over");
+        }, 200)
+        startOver();
+    }
+}
+
+function startOver() {
+    level = 0;
+    gamePattern = [];
+    setTimeout(()=>{
+       started = false; 
+    }, 200);
+    
 }
